@@ -9,7 +9,7 @@
 
 run with (change dbpassword!):
 
-mvn clean install && docker build -t bootdocker/bootdocker . && docker run -p 8080:8080 -e dbpassword=changeit -t bootdocker/bootdocker
+mvn clean install && docker build -t bootdocker/bootdocker . && docker run --name bootdocker -p 8080:8080 -e dbpassword=killer -t bootdocker/bootdocker
 
 -->
 
