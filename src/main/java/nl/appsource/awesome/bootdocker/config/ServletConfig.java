@@ -3,9 +3,7 @@ package nl.appsource.awesome.bootdocker.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import nl.appsource.awesome.bootdocker.spring.AppInitializer;
-
-@Configuration
+//@Configuration
 public class ServletConfig {
 
     @Bean

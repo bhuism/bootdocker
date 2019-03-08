@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="bhuism (generated)" id="1421094682371-1">
+		<createTable tableName="Categorie">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="bhuism (generated)" id="1421094682371-4">
+		<createTable tableName="Spreker">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" unique="true" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="bhuism (generated)" id="1421094682371-2">
+		<createTable tableName="Citaat">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="LONGTEXT">
+				<constraints nullable="false" />
+			</column>
+			<column name="categorie" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="spreker" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addForeignKeyConstraint
+			baseColumnNames="categorie" baseTableName="Citaat"
+			constraintName="FK785288E6469F3E0A" deferrable="false"
+			referencedColumnNames="id" referencedTableName="Categorie" />
+		<addForeignKeyConstraint
+			baseColumnNames="spreker" baseTableName="Citaat"
+			constraintName="FK785288E651A78AC" deferrable="false"
+			referencedColumnNames="id" referencedTableName="Spreker" />
+	</changeSet>
+
+	<changeSet id="citaten" author="bash" context="!citest">
+		<sqlFile path="citaten.sql" />
+	</changeSet>
+
+	<changeSet id="createQuotesV2" author="bhuism">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="Quotes" />
+			</not>
+		</preConditions>
+		<createTable tableName="Quotes">
+			<column name="id" type="bigint(20)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="quote" type="varchar(512)">
+				<constraints nullable="false" />
+			</column>
+			<column name="author" type="varchar(64)">
+				<constraints nullable="false" />
+			</column>
+			<column name="genre" type="varchar(32)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="insertQuotesV2" author="bhuism"
+		context="!citest">
+		<preConditions onFail="MARK_RAN">
+			<and>
+				<tableExists tableName="Quotes" />
+				<sqlCheck expectedResult="0">SELECT COUNT(*) FROM Quotes
+				</sqlCheck>
+			</and>
+		</preConditions>
+		<sqlFile path="quotes.sql" />
+	</changeSet>
+
+</databaseChangeLog>
+        

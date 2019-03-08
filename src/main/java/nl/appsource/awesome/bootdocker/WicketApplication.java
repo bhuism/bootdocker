@@ -10,10 +10,8 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.apache.wicket.util.crypt.CharEncoding;
 import org.springframework.context.ApplicationContext;
 
-import lombok.extern.slf4j.Slf4j;
 import nl.appsource.awesome.bootdocker.page.Home;
 
-@Slf4j
 public class WicketApplication extends WebApplication {
 
     @Inject
@@ -31,11 +29,10 @@ public class WicketApplication extends WebApplication {
         getComponentInstantiationListeners().add(new SpringComponentInjector(this, applicationContext));
         getJavaScriptLibrarySettings().setJQueryReference(JQueryResourceReference.getV3());
     }
-    
+
     @Override
     public Class<? extends Page> getHomePage() {
         return Home.class;
     }
-   
 
 }
