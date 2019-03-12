@@ -1,0 +1,5 @@
+#!/bin/sh
+
+docker stop bootdocker
+docker rm bootdocker
+docker run --name bootdocker -p 8080:8080 -e dbpassword=$1 -t bootdocker/bootdocker

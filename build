@@ -1,0 +1,7 @@
+#!/bin/sh
+
+mvn clean install
+docker stop bootdocker
+docker rm bootdocker
+docker build -t bootdocker/bootdocker .
+
